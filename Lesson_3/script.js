@@ -4,16 +4,16 @@ const a = 5;
 const b = 10;
 
 const sum = a+b;
-console.log('5+10=', sum);
+console.log('sum', sum);
 
 const difference = a-b;
-console.log('5-10=', difference); 
+console.log('difference', difference); 
 
 const division = a/b;
-console.log('5/10=', division); 
+console.log('division', division); 
 
 const multiplication = a*b;
-console.log('5*10=', multiplication); 
+console.log('multiplication', multiplication); 
 
 //2
 
@@ -31,35 +31,66 @@ console.log('5*10=', multiplication);
 // (10 || 0) && ('dog' || '')               'dog' true
 
 
-//3
+//3 Порівняння чисел
 
-alert('КАЛЬКУЛЯТОР');
-alert('Вам потрібно ввести значення двох чисел та обрати потрібну дію. Калькулятор все обчисліть за Вас!');
-let firstNumber = Number(prompt('Перше число ='));
-console.log(firstNumber);
-let secondNumber = Number(prompt('Друге число ='));
-let mathOperation = Number(prompt('Оберіть номер потрібної дії: 1 - додавання; 2 - віднімання; 3 - множення; 4 - ділення'));
-console.log(mathOperation);
+// alert('Вам потрібно ввести значення двох чисел, а ми поівняємо їх');
+// let c = Number(prompt('Перше число ='));
+// console.log(c);
+// let d = Number(prompt('Друге число ='));
+// console.log(d);
+// if (c > d ) {alert(`Число ${c} більше числа ${d}`);} ;
+// if (c < d) {alert(`Число ${d} більше числа ${c}`);};
+// if (c===d) {alert('Числа рівні');};
 
-switch (mathOperation) {
-    case 1:
-        let sum = firstNumber+secondNumber;
-        alert(`${firstNumber} + ${secondNumber} = ${sum}`);
-      break;
 
-    case 2:
-        let difference = firstNumber-secondNumber;
-        alert(`${firstNumber} - ${secondNumber} = ${difference}`);
-      break;
 
-    case 3:
-        let division = firstNumber/secondNumber;
-        alert(`${firstNumber} / ${secondNumber} = ${division}`);
-      break;
-    case 4:
-        let multiplication = firstNumber*secondNumber;
-        alert(`${firstNumber} * ${secondNumber} = ${multiplication}`);
-      break;
+//4 Калькулятор
+
+// alert('КАЛЬКУЛЯТОР');
+// alert('Вам потрібно ввести значення двох чисел та обрати потрібну дію. Калькулятор все обчисліть за Вас!');
+// let firstNumber = Number(prompt('Перше число ='));
+// console.log(firstNumber);
+// let secondNumber = Number(prompt('Друге число ='));
+// let mathOperation = Number(prompt('Оберіть номер потрібної дії: 1 - додавання; 2 - віднімання; 3 - множення; 4 - ділення'));
+// console.log(mathOperation);
+
+// switch (mathOperation) {
+//     case 1:
+//         let sum = firstNumber+secondNumber;
+//         alert(`${firstNumber} + ${secondNumber} = ${sum}`);
+//       break;
+
+//     case 2:
+//         let difference = firstNumber-secondNumber;
+//         alert(`${firstNumber} - ${secondNumber} = ${difference}`);
+//       break;
+    
+//     case 3:
+//         let multiplication = firstNumber*secondNumber;
+//         alert(`${firstNumber} * ${secondNumber} = ${multiplication}`);
+//       break;
+    
+//     case 4:
+//         let division = firstNumber/secondNumber;
+//         alert(`${firstNumber} / ${secondNumber} = ${division}`);
+//       break;
       
-    default:
-        alert(`Вибачте, але ця дія не передбачена...`);}
+//     default:
+//         alert(`Вибачте, але ця дія не передбачена...`);}
+
+// 5
+let userAge = Number(prompt('Для відвідування атракціону необхідно ввести Ваш вік'));
+console.log('userAge', userAge);
+if (userAge > 18 && userAge < 60) {alert('Будь ласка, вхід дозволено');} 
+else {
+    if (userAge < 12 || userAge > 80) {alert('Нажаль, Вам заборонено відвідувати атракціон');} 
+    else{
+        if ((userAge >= 12 && userAge <= 18) || (userAge >= 60 && userAge <= 80))
+        {let dozvil = confirm('Чи дозволяють Вам дорослі відвідувати атракціон?'); 
+           if (dozvil) {alert('Будь ласка, вхід дозволено');} else {alert('Вибачте, але Вам неможно відвідувати атракціон...');};} 
+   
+    }
+
+    
+}
+
