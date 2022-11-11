@@ -33,52 +33,53 @@ console.log('multiplication', multiplication);
 
 //3 Порівняння чисел
 
-// alert('Вам потрібно ввести значення двох чисел, а ми поівняємо їх');
-// let c = Number(prompt('Перше число ='));
-// console.log(c);
-// let d = Number(prompt('Друге число ='));
-// console.log(d);
-// if (c > d ) {alert(`Число ${c} більше числа ${d}`);} ;
-// if (c < d) {alert(`Число ${d} більше числа ${c}`);};
-// if (c===d) {alert('Числа рівні');};
+alert('Вам потрібно ввести значення двох чисел, а ми поівняємо їх');
+let c = Number(prompt('Перше число ='));
+console.log(c);
+let d = Number(prompt('Друге число ='));
+console.log(d);
+if (c > d ) {alert(`Число ${c} більше числа ${d}`);} ;
+if (c < d) {alert(`Число ${d} більше числа ${c}`);};
+if (c===d) {alert('Числа рівні');};
 
 
 
 //4 Калькулятор
 
-// alert('КАЛЬКУЛЯТОР');
-// alert('Вам потрібно ввести значення двох чисел та обрати потрібну дію. Калькулятор все обчисліть за Вас!');
-// let firstNumber = Number(prompt('Перше число ='));
-// console.log(firstNumber);
-// let secondNumber = Number(prompt('Друге число ='));
-// let mathOperation = Number(prompt('Оберіть номер потрібної дії: 1 - додавання; 2 - віднімання; 3 - множення; 4 - ділення'));
-// console.log(mathOperation);
+alert('КАЛЬКУЛЯТОР');
+alert('Вам потрібно ввести значення двох чисел та обрати потрібну дію. Калькулятор все обчисліть за Вас!');
+let firstNumber = Number(prompt('Перше число ='));
+console.log(firstNumber);
+let secondNumber = Number(prompt('Друге число ='));
+let mathOperation = Number(prompt('Оберіть номер потрібної дії: 1 - додавання; 2 - віднімання; 3 - множення; 4 - ділення'));
+console.log(mathOperation);
 
-// switch (mathOperation) {
-//     case 1:
-//         let sum = firstNumber+secondNumber;
-//         alert(`${firstNumber} + ${secondNumber} = ${sum}`);
-//       break;
+switch (mathOperation) {
+    case 1:
+        let sum = firstNumber+secondNumber;
+        alert(`${firstNumber} + ${secondNumber} = ${sum}`);
+      break;
 
-//     case 2:
-//         let difference = firstNumber-secondNumber;
-//         alert(`${firstNumber} - ${secondNumber} = ${difference}`);
-//       break;
+    case 2:
+        let difference = firstNumber-secondNumber;
+        alert(`${firstNumber} - ${secondNumber} = ${difference}`);
+      break;
     
-//     case 3:
-//         let multiplication = firstNumber*secondNumber;
-//         alert(`${firstNumber} * ${secondNumber} = ${multiplication}`);
-//       break;
+    case 3:
+        let multiplication = firstNumber*secondNumber;
+        alert(`${firstNumber} * ${secondNumber} = ${multiplication}`);
+      break;
     
-//     case 4:
-//         let division = firstNumber/secondNumber;
-//         alert(`${firstNumber} / ${secondNumber} = ${division}`);
-//       break;
+    case 4:
+        let division = firstNumber/secondNumber;
+        alert(`${firstNumber} / ${secondNumber} = ${division}`);
+      break;
       
-//     default:
-//         alert(`Вибачте, але ця дія не передбачена...`);}
+    default:
+        alert(`Вибачте, але ця дія не передбачена...`);}
 
-// 5
+// 5 Атракціон ДОЗВІЛ
+
 let userAge = Number(prompt('Для відвідування атракціону необхідно ввести Ваш вік'));
 console.log('userAge', userAge);
 if (userAge > 18 && userAge < 60) {alert('Будь ласка, вхід дозволено');} 
