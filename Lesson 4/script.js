@@ -6,15 +6,15 @@ function compareNumber(a, b){
 }
 
 function compareNumber2(a, b){
-    let result;
-    if (a === b) {result = true} else {result = false};
+    //let result;
+    if (a === b) {true} else {false};
 
-   return result;
+   return ;
 }
 
 // ЗАВДАННЯ 2
 
-function sum(a,b){
+function getSum(a,b){
     const sum=a+b;
     return sum;
 }
@@ -31,7 +31,8 @@ function exponentiation(a, c = 2){
 
 // ЗАВДАННЯ 4
 
-function dayWeek(a){
+function dayWeek(){
+    let a = Number(prompt('Введите день недели'));
     let day;
     switch(a){
         case 1:
@@ -58,7 +59,7 @@ function dayWeek(a){
         default:
             day = 'There is no such day'
             break;
-
+ 
     }
 return day;
     }
@@ -74,7 +75,7 @@ function helloUser(){
    if (name === '' || age === 0) {alert('К сожалению, Вы не ввели данные')} else {
     if (age > 30) {alert(`Здравствуйте, ${name}!`)} else{alert(`Привет, ${name}!`)};
    }
-    
+
     return helloUser;
 }
 
@@ -87,8 +88,10 @@ console.log('compareNumber2(5, 5)', compareNumber2(5, 5))
 console.log('compareNumber2(5, 15)', compareNumber2(5, 15))
 
 // Перевірка завдання 2
-console.log('sum(10, 12)', sum(10, 12));
-console.log('sum(11, 128)', sum(11, 128));
+const getSumm = getSum(10, 12);
+console.log('10+12 = ', getSumm);
+const getSumm1 = getSum(11, 128);
+console.log('11+128 = ', getSumm1);
 
 
 console.log('sumNumber(8, 9)', sumNumber(8, 9));
@@ -97,9 +100,10 @@ console.log('sumNumber(18, 2)', sumNumber(18, 2));
 // Перевірка завдання 3
 console.log('exponentiation(8, 3)', exponentiation(8, 3));
 console.log('exponentiation(5)', exponentiation(5));
+
 // Перевірка завдання 4
-console.log('dayWeek(1)', dayWeek(1));
-console.log('dayWeek(8)', dayWeek(8));
-console.log('dayWeek(3)', dayWeek(3));
+const day = dayWeek();
+console.log('dayWeek', day);
+
 // Перевірка завдання 5
 helloUser();
