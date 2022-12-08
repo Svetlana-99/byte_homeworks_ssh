@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 9</title>
+</head>
+<body>
+    <h1>HomeWork 9</h1> 
+    <h2>Задание 1</h3>
+    <h3>
+      1.1
+    </h3>
+    <ul>
+     <li> С помощью метода массива map преобразуйте массив чисел в массив булевых значений.</li>
+     <li>Принцип преобразования следующий: если число больше 0, в итоговый массив записывается true, если меньше - false.</li>
+    </ul>
+    <p>
+       [1, 2, -10, -2, 7]; // -> [true, true, false, false, true]
+    </p>
+  
+    <h3>
+      1.2
+    </h3>
+    <ul>
+     <li> Дан массив пользователей (в примере ниже)</li>
+     <li>Напишите функцию, которая с помощью комбинации методов массива filter и map будет возвращать массив имен взролых (старше 18 лет) администраторов (role === 'admin').</li>
+    </ul>
+   <p>
+  
+const users = [<br/>
+  {<br/>
+    name: 'Sam',<br/>
+    role: 'admin'<br/>
+    age: 25,<br/>
+  },<br/>
+    {<br/>
+    name: 'Peter',<br/>
+    role: 'admin'<br/>
+    age: 16,<br/>
+  },<br/>
+    {<br/>
+    name: 'Pablo',<br/>
+    role: 'admin'<br/>
+    age: 32,<br/>
+  },<br/>
+    {<br/>
+    name: 'Enrico',<br/>
+    role: 'client'<br/>
+    age: 43,<br/>
+  },<br/>
+    {
+    name: 'Mary',<br/>
+    role: 'client'<br/>
+    age: 34,<br/>
+  },<br/>
+    {<br/>
+    name: 'Katerine',<br/>
+    role: 'guest'<br/>
+    age: 17,<br/>
+  },<br/>
+]
+<h3>
+  1.3
+</h3>
+<ul>
+ <li> Дан массив чисел</li>
+ <li>С помощью метода reduce вычислите среднее арифметическое чисел в массиве. </li>
+</ul>
+<p>const numbers = [1, 10, 17, 24, 45]</p>
+   </p>
+   <h2>Задание 2</h2>
+    <h3>
+      Написать собственную реализацию методов массива map, forEach, filter</h3>
+         
+      <ul>
+        <li> Это могут быть функции под названием ownMap, ownForEach, ownFilter.</li>
+        <li>На вход они должны принимать массив, с которым необходимо осущуествить действие, и колбек-функцию, которая применится к каждому из элементов массива. </li>
+        <li>Встроенные методы массива map, forEach, filter испольовать запрещено.</li>
+       </ul>
+       <p>Пример работы:</p>
+       const isNegative = (number) => number < 0;<br/>
+const increment = (number) => number + 1;<br/>
+const logger = (element, index, array) => {<br/>
+  console.log(`In array [${array}] on position ${index}: ${element}`);<br/>
+
+<p>Вы можете испольвать уже готовые колбек-функции isNegative, increment, logger, для тестов, или напсиать свои. Работа будет проверяться на основе предоставленых функций, так что советуем проверить работу на них.</p>
+
+<h2>Задание 3* (опциональное)</h2>
+    <h3>
+      Написать универсальную функцию для фильтрации массива объектов
+    </h3>
+         
+      <ol>
+        <li> Функция принимает на вход 2 аргумента, первый это массив данных, второй - объект содержащий данные для фильтрации.
+        </li>
+        <li>На выходе результатом должен быть массив сожержащий объекты в которых нашлись совпадения.
+        </li>
+        <li>Учтите, что функция должна быть универсальной и работать с любыми объектами одного уровня вложенности.
+        </li>
+      </ol>
+       <p>Пример (данные можно взять любые другие):
+      </p>
+      <p>
+        const data = [<br/>
+  {<br/>
+    name: "John",<br/>
+    age: 24,<br/>
+    position: "senior",<br/>
+    isActive: false,<br/>
+  },<br/>
+  {<br/>
+    name: "Peter",<br/>
+    age: 33,<br/>
+    position: "middle",<br/>
+    isActive: false,<br/>
+  },<br/>
+  {<br/>
+    name: "Sam",<br/>
+    age: 29,<br/>
+    position: "junior",<br/>
+    isActive: true,<br/>
+  },<br/>
+  {<br/>
+    name: "Mary",<br/>
+    age: 24,<br/>
+    position: "middle",<br/>
+    isActive: false,<br/>
+  },<br/>
+  {<br/>
+    name: "Steve",<br/>
+    age: 23,<br/>
+    position: "middle",<br/>
+    isActive: true,<br/>
+  },<br/>
+  {<br/>
+    name: "Kate",<br/>
+    age: 31,<br/>
+    position: "middle",<br/>
+    isActive: false,<br/>
+  },<br/>
+  {<br/>
+    name: "Sally",<br/>
+    age: 19,<br/>
+    position: "junior",<br/>
+    isActive: false,<br/>
+  },<br/>
+  {<br/>
+    name: "Jack",<br/>
+    age: 19,<br/>
+    position: "middle",<br/>
+    isActive: true,<br/>
+  },<br/>
+];<br/>
+
+filterData(data, { age: 23 });<br/>
+// [<br/>
+//     {<br/>
+//         "name": "Steve",<br/>
+//         "age": 23,<br/>
+//         "position": "middle",<br/>
+//         "isActive": true<br/>
+//     }<br/>
+// ]<br/>
+
+filterData(data, { age: 24 });<br/>
+
+// [<br/>
+//     {<br/>
+//         "name": "John",<br/>
+//         "age": 24,<br/>
+//         "position": "senior",<br/>
+//         "isActive": false<br/>
+//     },<br/>
+//     {<br/>
+//         "name": "Mary",<br/>
+//         "age": 24,<br/>
+//         "position": "middle",<br/>
+//         "isActive": false<br/>
+//     }<br/>
+// ]<br/>
+
+filterData(data, { age: 19, position: "junior" });<br/>
+// [<br/>
+//     {<br/>
+//         "name": "Sally",<br/>
+//         "age": 19,<br/>
+//         "position": "junior",<br/>
+//         "isActive": false<br/>
+//     }<br/>
+// ]<br/>
+
+// то есть, функция вернула массив со всеми работниками на позиции junior и всеми работниками, которым 19 лет<br/>
+      </p>
+
+<script src="./script.js"></script>
+</body>
+</html>   
