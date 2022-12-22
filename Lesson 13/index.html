@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+     .slideshow-container {
+        max-width: 900px;
+        margin: auto; 
+        text-align: center;
+      }
+      .mySlides {
+        display: none;
+      }
+      .prev, .next {
+        cursor: pointer;
+        padding: 8px 16px;
+        margin-top: 10px;
+        color: rgba(71, 62, 62, 0.8);
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 5px;
+        border: 1px solid rgba(52, 46, 46, 0.8);
+        text-transform: uppercase;
+      }
+      .prev:hover, .next:hover {
+        background-color: rgba(71, 62, 62, 0.8);
+        color: white;
+       
+      }
+      .img{
+        border-radius: 15px;
+        width:50%;
+        animation-delay: 12s; 
+      }
+
+    </style>
+    <title>Lesson 13</title>
+  </head>
+  <body>
+<h1>Lesson 13</h1>
+<div class="slideshow-container">
+  <div class="mySlides">
+    <img src="images/1.jpg"  class="img">
+  </div>
+  <div class="mySlides ">
+    <img src="images/2.jpg" class="img">
+  </div>
+  <div class="mySlides ">
+    <img src="images/3.jpg" class="img">
+  </div>
+  <div class="mySlides ">
+    <img src="images/4.jpg" class="img">
+  </div>
+  <button class="prev" id = "prev">Prev</button>
+  <button class="next" id = "next">Next</button>
+</div>
+    <script src="./script.js"></script>
+  </body>
+</html>
