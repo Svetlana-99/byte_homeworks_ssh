@@ -40,7 +40,6 @@ const createLabelElement = (labelText, name)=>{
 }
 
 const createInputBlockElement = (placeholderText, name, element)=>{
-   
     const input = document.createElement("input");
     input.placeholder = `Введите ${placeholderText.toLowerCase()}...`;
     input.name = `${name}`;
@@ -49,6 +48,17 @@ const createInputBlockElement = (placeholderText, name, element)=>{
     return input;
 }
 
+const createSelectBlockElement = (name, label, element, options) =>{
+  const select = document.createElement("select");
+  select.name = `${name}`;       
+  select.type = `${element}`;
+  options
+  .forEach((item) =>{
+    const selectOptions = select.add(new Option(`${item.text}`, `${item.value}`));
+    select.append(selectOptions);
+  })
+  return select;
+}
 
 var button = document.createElement('button');
 button.innerText = 'Подтвердить';
@@ -58,6 +68,7 @@ button.classList.add("buttonSubmit");
 
 
 const greateAllElements = (arr) =>{
+
   const conteinerBlock = document.createElement('div');
   let form = document.createElement('form');
   form.id = "formData"
@@ -67,24 +78,20 @@ const greateAllElements = (arr) =>{
             inputBlock.classList.add("inputBlock");
             const label = createLabelElement(arr[key].label, arr[key].name);
             const input = createInputBlockElement(arr[key].label, arr[key].name, arr[key].element );
-           
+            
             inputBlock.append( label, input);
             form.append(inputBlock);
-        } else {
+        };
+        if (arr[key].element === 'select'){
           const selectBlock = document.createElement('div');
           const label = createLabelElement(arr[key].label);
-          const select = document.createElement("select");
-         
-          select.name = `${arr[key].name}`;
-          arr[key].options
-          .forEach((item) =>{
-            const selectOptions = select.add(new Option(`${item.text}`, `${item.value}`));
-            select.append(selectOptions);
-          })
-            selectBlock.append( label, select);
-            form.append(selectBlock, button);
-            conteinerBlock.append(form);
-        }
+          const select = createSelectBlockElement(arr[key].name, arr[key].label, arr[key].element, arr[key].options );
+        
+          selectBlock.append( label, select);
+          form.append(selectBlock, button);
+        };
+        
+        conteinerBlock.append(form);
     }
        document.body.append(conteinerBlock)
        return
