@@ -25,7 +25,6 @@ const renderWelcomeVisitedBlock = (N) => {
 const updateLocalStorage = () =>{
   renderWelcomeBlock();
   N = JSON.parse(localStorage.getItem(VISITED));
-  console.log('N', N);
   if (N) {
     N +=1;
     renderWelcomeVisitedBlock(N);
