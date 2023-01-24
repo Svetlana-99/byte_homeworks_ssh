@@ -121,8 +121,7 @@ const get = (url)=>{
     const lineElem = document.createElement("hr");
     
     commentElem.append(bodyCommentElem, lineElem);
-    postContainer.append(commentElem);
-    commentDiv.append(postContainer);
+    postContainer.append(commentElem, commentDiv);
   }
     
  
