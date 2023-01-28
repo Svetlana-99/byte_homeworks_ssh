@@ -47,41 +47,57 @@ const get = (url)=>{
     return get(`${ BASE_URL}/comments`);
   };
 
-  const renderCommentsAfterClick = (numberPostId, postContainer) =>{ 
-    getComments()
-      .then((postId) => {
-        postId.forEach(item =>{
-          if(item.postId === numberPostId){
-            renderComments(item, postContainer)
-          }
-      })
-    })
-      .catch((err) => {
-          if (err.status === 404) {
-            alert("Comments not found!");
-          }
-      });
-    }
-
-
-  const  clearBox = (elementID) =>
-  {return document.getElementById(elementID).innerHTML = ""}
   
-
-  const handleShowComment = (event)=>{
-    const currentButton = event.currentTarget;
-    commentElem.className = 'comment-elem';
-
-      if (currentButton.hasAttribute('show')){
-        currentButton.innerText = 'Show comments'
-        currentButton.removeAttribute('show');
-        commentElem.classList.toggle("comment-none")
-      }else{
-        currentButton.setAttribute('show', '');
-        currentButton.innerText = 'Hidden comments' 
-      }
-  clearBox("comment");
+const hideComments = (div)=>{
+let commentsDel = div.lastElementChild;
+commentsDel.remove();
 };
+
+const renderComments = (comments, div)=>{
+const divComment = document.createElement('div');
+
+comments.forEach((comments)=>{
+  let {body} = comments;
+  divComment.className='comment-elem'
+  const bodyCommentElem = document.createElement("p");
+  bodyCommentElem.innerText = body;
+  const lineElem = document.createElement("hr");
+  
+  divComment.append(bodyCommentElem, lineElem)
+})
+div.append(divComment);
+}
+
+const getPostComments =(postId, event)=>{
+
+
+  const button = event.currentTarget;
+  const parent = event.currentTarget.parentNode;
+
+  getComments()
+      .then((comments) =>{
+        let comment = comments.filter((result) => {
+          if (result.postId === postId){
+          return result}
+        } 
+        );
+          if (button.innerText === 'Show comments'){
+              button.innerText = 'Hidden comments';
+              renderComments(comment, parent)
+            } else {
+            if (button.innerText === 'Hidden comments'){
+              button.innerText = 'Show comments';
+              hideComments( parent)
+            }       
+          };
+})
+.catch((err) => {
+  if (err.status === 404) {
+    alert("Comments not found!");
+  }
+});
+};
+
 
   const renderPost = (post) => {
     
@@ -106,23 +122,11 @@ const get = (url)=>{
     postDiv.append(postContainer); 
     
     btnComments.addEventListener('click',
-    ()=>{
-      renderCommentsAfterClick(postId, postContainer); 
-      handleShowComment(event)
+    (event)=>{
+     getPostComments(postId, event)
     });
   };
     
-   
-  const renderComments =(comment, postContainer) =>{
-    const {body} = comment;
   
-    const bodyCommentElem = document.createElement("p");
-   
-    bodyCommentElem.innerText = body;
-    const lineElem = document.createElement("hr");
-    
-    commentElem.append(bodyCommentElem, lineElem);
-    postContainer.append(commentElem);
-  }
     
  
