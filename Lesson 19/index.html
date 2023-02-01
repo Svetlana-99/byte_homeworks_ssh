@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+    .main-div{
+      display: flex;
+      justify-content: center;
+      }
+    .main-content{
+      border: 1px solid rgb(73, 71, 71);
+      border-radius: 10px;
+      box-shadow: 5px 5px 5px #c4c2c2;
+      width: 500px;
+      text-align: center;
+      padding: 25px;
+    }
+    .img-content{
+      width: 50%;
+      border: 1px solid #f3f0f0;
+    }
+    .main-container{
+      display: flex;
+      /* background: aqua; */
+      margin: 0 auto;
+      width: 1100px;
+      font-family: sans-serif;
+      flex-direction: column;
+      align-items: center;
+    }
+    .form {
+      max-width: 560px;
+      padding: 32px;
+      margin: 0 auto;
+      box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  }
+  .input-block{
+    width: 310px;
+    padding: 5px 8px;
+    margin: 10px;
+    border: 1px solid #228114;
+    border-radius: 4px;
+    font-size: 18px;
+}
+.button {
+  background-color: #e8eede;
+    border: 2px solid #228114;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 5px 8px;
+    font-size: 18px;
+  }
+  .film-card{
+    display: none;
+    padding: 32px;
+    margin: 0 auto;
+    width: inherit;
+    max-width: 550px;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  }
+  .block{
+    display: block;
+  }
+  .none{
+    display: none;
+  }
+  .preloader {
+        display: none;
+        position: absolute;
+        top: 85%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+  .lds-spinner {
+        width: 80px;
+        height: 80px;
+      }
+      .lds-spinner div {
+        transform-origin: 40px 40px;
+        animation: lds-spinner 1.2s linear infinite;
+      }
+      .lds-spinner div:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 37px;
+        width: 6px;
+        height: 18px;
+        border-radius: 20%;
+        background: #000;
+      }
+      .lds-spinner div:nth-child(1) {
+        transform: rotate(0deg);
+        animation-delay: -1.1s;
+      }
+      .lds-spinner div:nth-child(2) {
+        transform: rotate(30deg);
+        animation-delay: -1s;
+      }
+      .lds-spinner div:nth-child(3) {
+        transform: rotate(60deg);
+        animation-delay: -0.9s;
+      }
+      .lds-spinner div:nth-child(4) {
+        transform: rotate(90deg);
+        animation-delay: -0.8s;
+      }
+      .lds-spinner div:nth-child(5) {
+        transform: rotate(120deg);
+        animation-delay: -0.7s;
+      }
+      .lds-spinner div:nth-child(6) {
+        transform: rotate(150deg);
+        animation-delay: -0.6s;
+      }
+      .lds-spinner div:nth-child(7) {
+        transform: rotate(180deg);
+        animation-delay: -0.5s;
+      }
+      .lds-spinner div:nth-child(8) {
+        transform: rotate(210deg);
+        animation-delay: -0.4s;
+      }
+      .lds-spinner div:nth-child(9) {
+        transform: rotate(240deg);
+        animation-delay: -0.3s;
+      }
+      .lds-spinner div:nth-child(10) {
+        transform: rotate(270deg);
+        animation-delay: -0.2s;
+      }
+      .lds-spinner div:nth-child(11) {
+        transform: rotate(300deg);
+        animation-delay: -0.1s;
+      }
+      .lds-spinner div:nth-child(12) {
+        transform: rotate(330deg);
+        animation-delay: 0s;
+      }
+      @keyframes lds-spinner {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+    <title>Lesson 19</title>
+  </head>
+  <body>
+    <h1>Lesson 19</h1>
+     <!-- Завдання 1 -->
+     <h2>Завдання 1</h2>
+    <div id="mainDiv"></div>
+    <!-- Завдання 2 -->
+    <h2>Завдання 2</h2>
+    <div class="main-container">
+      <div class="lds-spinner preloader" id="preloader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div>
+        <form action="#" class="form" id="character-form">
+          <input type="text" class="input-block" placeholder="Input ID character from 1 to 82" id="character-id"/>
+          <button type="submit" class="button" id="character-btn">Отримати персонажа</button>
+        </form>
+      </div>
+      
+      <div class="film-card" id="film-card">
+        <h2 id="name"></h2>
+        <button class="button" id="film-btn">Film's</button>
+        <h3 id="film-name" class="none"></h3>
+      </div>
+     
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
