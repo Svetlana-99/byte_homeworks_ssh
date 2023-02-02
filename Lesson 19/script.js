@@ -2,28 +2,36 @@
 const IP = 'https://ipapi.co/json/'
 const IMAGE = 'https://restcountries.com/v2/name/'
 
-const renderBlock = ({result, resultImg}) =>{
-  const {country_name, city, currency}= result;
-  const {flag} = resultImg;
+const mainDiv = document.getElementById("mainDiv");
+const mainContent = document.createElement("div");
 
-  const mainDiv = document.getElementById("mainDiv");
-  const mainContent = document.createElement("div");
+const renderBlockCountry = ({result, resultImg}) =>{
+  const {country_name, city, currency}= result;
+  
   const countryTitle = document.createElement("h1");
   const cityTitle = document.createElement("h2");
   const currencyTitle = document.createElement("p");
-  const flagImg = document.createElement("img");
-
+  
   mainDiv.classList = 'main-div';
   mainContent.className = 'main-content';
-  flagImg.className = 'img-content';
-
+ 
   countryTitle.innerText = country_name;
   cityTitle.innerText = city;
   currencyTitle.innerText = currency;
+
+  mainContent.append(countryTitle, cityTitle, currencyTitle);
+  mainDiv.append(mainContent);
+}
+const renderBlockFlag = ({resultImg}) =>{
+  const {flag} = resultImg;
+
+  const flagImg = document.createElement("img");
+
+  flagImg.className = 'img-content';
   flagImg.src = flag;
   flagImg.alt = 'Сountry flag'
 
-  mainContent.append(countryTitle, cityTitle, currencyTitle, flagImg);
+  mainContent.append(flagImg);
   mainDiv.append(mainContent);
 }
 
@@ -35,18 +43,23 @@ const dataForImage = async (name) => {
   return fetch(`${IMAGE}/${name}`)
 }
 //
-const getData = async () => {
+const getDataCountry = async () => {
 
   const response = await dataForIP();
   const result = await response.json();
   const COUNTRY = result.country_name;
+  renderBlockCountry({result});
+  getDataFlag(COUNTRY);
+};
+
+
+const getDataFlag = async (COUNTRY) => {
   const responseImage = await dataForImage(COUNTRY);
   const resultImage = await responseImage.json();
 
-  renderBlock({result, resultImg: resultImage[0]});
+  renderBlockFlag({ resultImg: resultImage[0]});
 };
-
-getData();
+getDataCountry();
 
 // Задание 2
 // С помощью сервиса swapi.dev запросите информацию о персонаже Звездных войн, а так же все фильмы, в которых он появлялся.
@@ -78,8 +91,6 @@ const showPreloader = (show) => {
 const handleRequestErrors = async (response) => {
   if (!response.ok) {
     const { error } = await response.json();
-    console.log('error::::', error)
-    console.log('response.json()::::', response.json())
     throw new Error(error);
   }
   return response;
@@ -134,6 +145,8 @@ const handleFormSumbit = async (event) => {
     }
   }
 };
+
+
 
 // Запрос на фильмы
 const getAllNameFilms = async ({ films }) => {
