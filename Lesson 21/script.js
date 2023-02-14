@@ -4,12 +4,8 @@ const containerCard = document.createElement("div");
 container.classList.add("container");
 containerCard.classList.add("containerCard");
 
-const localInfoPlanetCard =
-  JSON.parse(localStorage.getItem("PlanetCard")) || [];
-const localInfoStarshipsCard =
-  JSON.parse(localStorage.getItem("StarshipsCard")) || [];
-const localInfoVehiclesCard =
-  JSON.parse(localStorage.getItem("VehiclesCard")) || [];
+const localInfoCard =
+  JSON.parse(localStorage.getItem("allCard")) || [];
 
 function showPreloader(show) {
   if (show) {
@@ -20,23 +16,22 @@ function showPreloader(show) {
 }
 
 function oldCardLocalStorage() {
-  if (
-    (localStorage.getItem("PlanetCard") ||
-      localStorage.getItem("StarshipsCard") ||
-      localStorage.getItem("VehiclesCard")) !== null
-  ) {
-    localInfoPlanetCard.forEach((item) => {
+  if    (localStorage.getItem("allCard")  !== null) {
+    localInfoCard.forEach((item)=>{console.log('localInfoCard', localInfoCard);
+    if (item.cardType === "planetCardType") {
       const oldPlanetCard = new PlanetCard(item);
       oldPlanetCard.render(containerCard);
-    });
-    localInfoStarshipsCard.forEach((item) => {
+    }
+    if (item.cardType === "starshipsCardType") {
       const oldStarshipsCard = new StarshipsCard(item);
       oldStarshipsCard.render(containerCard);
-    });
-    localInfoVehiclesCard.forEach((item) => {
+    }
+    if (item.cardType === "vehiclesCardType") {
       const oldVehiclesCard = new VehiclesCard(item);
       oldVehiclesCard.render(containerCard);
+    }
     });
+   
   }
 }
 
@@ -211,40 +206,43 @@ class Card {
     this.cardBlock.append(this.btnClose, this.titleBlock);
 
     this.btnClose.addEventListener("click", () => {
+      console.log("localInfoCard", localInfoCard)
       this.cardBlock.remove();
-
+      
       if (this.cardBlock.id === "planet") {
-        localInfoPlanetCard.forEach((item, index) => {
+        localInfoCard.forEach((item, index) => {
           if (item.name === this.name) {
-            localStorage.removeItem("PlanetCard");
-            localInfoPlanetCard.splice(index, 1);
+            localStorage.removeItem("allCard");
+            localInfoCard.splice(index, 1);
+            // console.log("test", test)
+            
             localStorage.setItem(
-              "PlanetCard",
-              JSON.stringify(localInfoPlanetCard)
+              "allCard",
+              JSON.stringify(localInfoCard)
             );
           }
         });
       }
       if (this.cardBlock.id === "starships") {
-        localInfoStarshipsCard.forEach((item, index) => {
+        localInfoCard.forEach((item, index) => {
           if (item.name === this.name) {
-            localStorage.removeItem("StarshipsCard");
-            localInfoStarshipsCard.splice(index, 1);
+            localStorage.removeItem("allCard");
+            localInfoCard.splice(index, 1);
             localStorage.setItem(
-              "StarshipsCard",
-              JSON.stringify(localInfoStarshipsCard)
+              "allCard",
+              JSON.stringify(localInfoCard)
             );
           }
         });
       }
       if (this.cardBlock.id === "vehicles") {
-        localInfoVehiclesCard.forEach((item, index) => {
+        localInfoCard.forEach((item, index) => {
           if (item.name === this.name) {
-            localStorage.removeItem("VehiclesCard");
-            localInfoVehiclesCard.splice(index, 1);
+            localStorage.removeItem("allCard");
+            localInfoCard.splice(index, 1);
             localStorage.setItem(
-              "VehiclesCard",
-              JSON.stringify(localInfoVehiclesCard)
+              "allCard",
+              JSON.stringify(localInfoCard)
             );
           }
         });
@@ -261,8 +259,10 @@ class PlanetCard extends Card {
     this.climate = climate;
     this.population = population;
     this.terrain = terrain;
+    this.cardType =  "planetCardType";
 
-    this.localStoragInfo = { ...options, climate, population, terrain };
+
+    this.localStoragInfo = { ...options, climate, population, terrain, cardType: this.cardType };
   }
   render() {
     super.render();
@@ -281,8 +281,8 @@ class PlanetCard extends Card {
     );
   }
   localSet() {
-    localInfoPlanetCard.push(this.localStoragInfo);
-    localStorage.setItem("PlanetCard", JSON.stringify(localInfoPlanetCard));
+    localInfoCard.push(this.localStoragInfo);
+    localStorage.setItem("allCard", JSON.stringify(localInfoCard));
   }
 }
 
@@ -293,7 +293,8 @@ class StarshipsCard extends Card {
     this.model = model;
     this.manufacturer = manufacturer;
     this.max_atmosphering_speed = max_atmosphering_speed;
-    this.localStoragInfo = { ...options, model, manufacturer, manufacturer };
+    this.cardType =  "starshipsCardType";
+    this.localStoragInfo = { ...options, model, manufacturer, manufacturer, cardType: this.cardType  };
   }
   render() {
     super.render();
@@ -312,10 +313,10 @@ class StarshipsCard extends Card {
     );
   }
   localSet() {
-    localInfoStarshipsCard.push(this.localStoragInfo);
+    localInfoCard.push(this.localStoragInfo);
     localStorage.setItem(
-      "StarshipsCard",
-      JSON.stringify(localInfoStarshipsCard)
+      "allCard",
+      JSON.stringify(localInfoCard)
     );
   }
 }
@@ -327,7 +328,8 @@ class VehiclesCard extends Card {
     this.cost_in_credits = cost_in_credits;
     this.crew = crew;
     this.passengers = passengers;
-    this.localStoragInfo = { ...options, cost_in_credits, crew, passengers };
+    this.cardType =  "vehiclesCardType";
+    this.localStoragInfo = { ...options, cost_in_credits, crew, passengers, cardType: this.cardType  };
   }
   render() {
     super.render();
@@ -346,8 +348,8 @@ class VehiclesCard extends Card {
     );
   }
   localSet() {
-    localInfoVehiclesCard.push(this.localStoragInfo);
-    localStorage.setItem("VehiclesCard", JSON.stringify(localInfoVehiclesCard));
+    localInfoCard.push(this.localStoragInfo);
+    localStorage.setItem("allCard", JSON.stringify(localInfoCard));
   }
 }
 

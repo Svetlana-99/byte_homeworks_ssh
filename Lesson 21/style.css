@@ -7,9 +7,7 @@
     font-family: sans-serif;
     align-items: flex-start;
   }
-  .containerCard {
-    /* margin-left: 20px */
-   }
+ 
 .input-block{
   width: 310px;
   padding: 5px 8px;
@@ -35,8 +33,8 @@
   padding: 5px 8px;
   font-size: 18px;
 }
-h3{ margin: 0px;
-
+h3{
+   margin: 0px;
 }
 .btnClose{
   position: absolute;
@@ -47,7 +45,6 @@ h3{ margin: 0px;
   border: none;
   background: none;
   font-size: 16px;
-
 }
 .card{
   position: relative;
