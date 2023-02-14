@@ -143,7 +143,7 @@ const form = new Form({
   inputId,
   onSubmit: (values) => {
     const api = new API(values);
-    const card = api.getStarships();
+    const card = api.getData();
     card.then(
       (data)=>{
         showPreloader(false);
@@ -184,7 +184,7 @@ class API {
     this.name = name;
     this.id = id;
   }
- async getStarships(){
+ async getData(){
  try {
     const response = 
     await fetch(`${BASE_URL}/${this.name}/${this.id}`);
