@@ -17,7 +17,7 @@ function showPreloader(show) {
 
 function oldCardLocalStorage() {
   if    (localStorage.getItem("allCard")  !== null) {
-    localInfoCard.forEach((item)=>{console.log('localInfoCard', localInfoCard);
+    localInfoCard.forEach((item)=>{
     if (item.cardType === "planetCardType") {
       const oldPlanetCard = new PlanetCard(item);
       oldPlanetCard.render(containerCard);
@@ -142,8 +142,39 @@ const form = new Form({
   selectName,
   inputId,
   onSubmit: (values) => {
-    const getData = new API(values);
-    getData.render();
+    const api = new API(values);
+    const card = api.getStarships();
+    card.then(
+      (data)=>{
+        showPreloader(false);
+        if(data.detail === 'Not found'){
+          alert("No information found for this query");
+        }else{
+          switch (api.name) {
+            case 'starships':
+              const starshipsCard = new StarshipsCard(data)
+              starshipsCard.render(containerCard);
+              starshipsCard.localSet();
+              break;
+              case 'planets':
+                const planetsCard = new PlanetCard(data);
+                planetsCard.render(containerCard);
+                planetsCard.localSet();
+                break;
+              case 'vehicles':
+                const vehiclesCard = new VehiclesCard(data);
+                vehiclesCard.render(containerCard);
+                vehiclesCard.localSet();
+                break;
+  
+              default:
+                alert("No information found for this query");
+      
+          }
+        }
+        
+      }
+    )
   },
 });
 
@@ -152,40 +183,19 @@ class API {
     const { valueName: name, valueID: id } = options;
     this.name = name;
     this.id = id;
-    this.cardRequest = this.cardRequest;
-    this.cardRequest = new XMLHttpRequest();
-    this.cardRequest.open("GET", `${BASE_URL}/${name}/${id}`);
-    this.cardRequest.responseType = "json";
-    this.cardRequest.send();
   }
-  render() {
-    showPreloader(true);
-    this.cardRequest.onload = () => {
-      const { status, response } = this.cardRequest;
-      if (status === 200) {
-        showPreloader(false);
-        if (this.name === "starships") {
-          const starshipsCard = new StarshipsCard(response);
-          starshipsCard.render(containerCard);
-          starshipsCard.localSet();
-        }
-        if (this.name === "planets") {
-          const planetsCard = new PlanetCard(response);
-          planetsCard.id = "planets";
-          planetsCard.render(containerCard);
-          planetsCard.localSet();
-        }
-        if (this.name === "vehicles") {
-          const vehiclesCard = new VehiclesCard(response);
-          vehiclesCard.render(containerCard);
-          vehiclesCard.localSet();
-        }
-      } else {
-        alert("No information found for this query");
-        showPreloader(false);
-      }
-    };
+ async getStarships(){
+ try {
+    const response = 
+    await fetch(`${BASE_URL}/${this.name}/${this.id}`);
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    showPreloader(false);
+    alert("No information found for this query");
   }
+}
 }
 
 class Card {
@@ -206,24 +216,10 @@ class Card {
     this.cardBlock.append(this.btnClose, this.titleBlock);
 
     this.btnClose.addEventListener("click", () => {
-      console.log("localInfoCard", localInfoCard)
+  
       this.cardBlock.remove();
       
-      if (this.cardBlock.id === "planet") {
-        localInfoCard.forEach((item, index) => {
-          if (item.name === this.name) {
-            localStorage.removeItem("allCard");
-            localInfoCard.splice(index, 1);
-            // console.log("test", test)
-            
-            localStorage.setItem(
-              "allCard",
-              JSON.stringify(localInfoCard)
-            );
-          }
-        });
-      }
-      if (this.cardBlock.id === "starships") {
+      if (this.cardType === "planetCardType") {
         localInfoCard.forEach((item, index) => {
           if (item.name === this.name) {
             localStorage.removeItem("allCard");
@@ -235,7 +231,19 @@ class Card {
           }
         });
       }
-      if (this.cardBlock.id === "vehicles") {
+      if (this.cardType ===  "starshipsCardType") {
+        localInfoCard.forEach((item, index) => {
+          if (item.name === this.name) {
+            localStorage.removeItem("allCard");
+            localInfoCard.splice(index, 1);
+            localStorage.setItem(
+              "allCard",
+              JSON.stringify(localInfoCard)
+            );
+          }
+        });
+      }
+      if (this.cardType ===  "vehiclesCardType") {
         localInfoCard.forEach((item, index) => {
           if (item.name === this.name) {
             localStorage.removeItem("allCard");
@@ -272,7 +280,6 @@ class PlanetCard extends Card {
     this.climateBlock.innerText = `Climate: ${this.climate}`;
     this.terrainBlock.innerText = `Terrain: ${this.terrain}`;
     this.populationBlock.innerText = `Population: ${this.population}`;
-    this.cardBlock.id = "planet";
 
     this.cardBlock.append(
       this.climateBlock,
@@ -304,7 +311,6 @@ class StarshipsCard extends Card {
     this.modelBlock.innerText = `Model: ${this.model}`;
     this.manufacturerBlock.innerText = `Manufacturer: ${this.manufacturer}`;
     this.max_atmosphering_speed_Block.innerText = `Max speed: ${this.max_atmosphering_speed}`;
-    this.cardBlock.id = "starships";
 
     this.cardBlock.append(
       this.modelBlock,
@@ -339,8 +345,7 @@ class VehiclesCard extends Card {
     this.cost_in_credits_Block.innerText = `Cost in credits: ${this.cost_in_credits}`;
     this.crewBlock.innerText = `Crew: ${this.crew}`;
     this.passengers_Block.innerText = `Passengers: ${this.passengers}`;
-    this.cardBlock.id = "vehicles";
-
+  
     this.cardBlock.append(
       this.cost_in_credits_Block,
       this.crewBlock,
