@@ -1,19 +1,15 @@
 import "./styles/style.css";
 import {
   formLogin,
-  formRegister,
   formAddTask,
-  btnTitle,
   formLoginBlock,
-  formRegisterBlock,
   boardTask,
 } from "./components/Form.js";
-import { urlSelf, urlTask, getData, API } from "./components/API.js";
-import {TaskCard} from "./components/Task.js"
+import { urlSelf, urlTask, API } from "./components/API.js";
+import { TaskCard } from "./components/Task.js";
 import { formAddTaskBlock, tasksBlock } from "./components/Form.js";
 
 export let isLogin = false;
-export let isRegister = false;
 
 export const appWrapper = document.getElementById("app-wrapper");
 const headerContainer = document.getElementById("header_container");
@@ -42,7 +38,8 @@ logoutButton.addEventListener("click", () => {
   formLogin.render(formLoginBlock);
   logoutBlock.remove();
   boardTask.className = "display_none";
-  authorization();
+  isLogin=true;
+  main();
 });
 export function renderLogoutBlock(logoutBlock, firstLetterName) {
   logoutButton.innerText = "LOGOUT";
@@ -50,53 +47,38 @@ export function renderLogoutBlock(logoutBlock, firstLetterName) {
   logoutSpan.innerText = firstLetterName;
   logoutBlock.append(logoutButton, logoutSpan);
   header.append(logoutBlock);
-};
-export function getTasks(id){
-  const taskAll = new API(id);
-      const taskAllCard = taskAll.getAllTasks();
-      taskAllCard.then((tasks) => {
-        console.log("tasks", tasks);
-        tasks.forEach((item) => {
-          const task = new TaskCard(item);
-          task.renderTaskCard(tasksBlock);
-        });
-      });
+}
+export function getTasks() {
+  const taskAll = new API(urlTask);
+  const taskAllCard = taskAll.getAllTasks(urlTask);
+  taskAllCard.then((tasks) => {
+    tasks.forEach((item) => {
+      const task = new TaskCard(item);
+      task.renderTaskCard(tasksBlock);
+    });
+  });
 }
 
 // Проверка на token:
 
-function authorization(){
+function main() {
   const token = localStorage.getItem("token");
   if (token) {
-    const authorization = new API(token);
-    const isAuthorization = authorization.getData(urlSelf, token);
-    // console.log("isAuthorization", isAuthorization);
+    const login = new API(token);
+    const isAuthorization = login.getData(urlSelf, token);
+    isLogin = Boolean(login.getData(urlSelf, token));
     isAuthorization.then((response) => {
-      // console.log("response_isAuthorization", response);
       const firstLetterName = response.name[0].toUpperCase();
-      const id = response._id;
       renderLogoutBlock(logoutBlock, firstLetterName);
       formAddTask.render(formAddTaskBlock);
-      getTasks(id);
+      getTasks();
     });
   }
-  
+
   if (!token || token === "undefined") {
     formLogin.render(formLoginBlock);
-  
-    btnTitle.addEventListener("click", () => {
-      if (btnTitle.innerText === "REGISTER") {
-        formLogin.remove(formLoginBlock);
-        btnTitle.innerText = "LOGIN";
-        formRegister.render(formRegisterBlock);
-      } else {
-        btnTitle.innerText = "REGISTER";
-        formRegister.remove(formRegisterBlock);
-        formLogin.render(formLoginBlock);
-      }
-    });
   }
 }
 
-authorization();
+main();
 document.body.append(headerContainer, appWrapper);

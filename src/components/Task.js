@@ -85,7 +85,7 @@ export class TaskCard {
 
     if (this.isActive) {
       this.timerBtn.innerHTML = `<i class="fas fa-pause"></i>`;
-        this.startTimer();
+      this.startTimer();
     } else {
       this.timerBtn.innerHTML = `<i class="fas fa-play"></i>`;
     }
@@ -129,7 +129,6 @@ export class TaskCard {
   };
   toggleTimeTracker = async () => {
     this.isActive = !this.isActive;
-    console.log("this.isActive", this.isActive);
 
     const editTask = new API(this.id, { isActive: this.isActive });
     await editTask.editTask(this.id, { isActive: this.isActive });

@@ -31,7 +31,6 @@ export const registerFormData = [
   },
 ];
 
-
 export const taskFormData = [
   {
     name: "name",
@@ -45,7 +44,6 @@ export const taskFormData = [
   },
 ];
 
-
 export class Input {
   constructor(options) {
     const {
@@ -57,56 +55,59 @@ export class Input {
       onChange,
     } = options;
 
-    this.containerInput = document.createElement("div");
-    this.containerInput.setAttribute("id", "test");
-    this.labelInput = document.createElement("p");
     this.input = document.createElement("input");
     this.errorMessageElement = document.createElement("span");
 
     this.name = name;
     this.label = label;
     this.input.name = name;
-
-    this.input.placeholder = placeholder;
-    this.labelInput.innerText = label;
-    this.value = this.input.value;
     this.input.type = type;
 
-    this.containerInput.className = "div_input";
+    this.input.placeholder = placeholder;
+    this.value = this.input.value;
+    this.control = this.createControl(onInput, onChange);
+  }
+
+  createControl(onInput, onChange) {
+    const containerInput = document.createElement("div");
+    const label = document.createElement("label");
+
+    const inputId = `_${this.name}`;
+
+    containerInput.className = "div_input";
     this.errorMessageElement.classList.add("error");
     this.input.className = "input";
 
-  
-    this.containerInput.append(this.labelInput, this.input, this.errorMessageElement)
+    this.input.id = inputId;
+    label.setAttribute("for", inputId);
 
-    function addListener() {
-      // this.element.addEventListener("change", (event) => {
-        
-      //   onChange(event);
-      // });
-      this.input.addEventListener("input", (event) => {
-        console.log('NO__input')
-        this.value = event.target.value;
-        // console.log('this.value__input', this.value)
-        // this.updateErrorMessage('')
-        if (onInput) {
-          // console.log('this.valu', this.value)
-          onInput(event);
-        }
-      });
-      if (onChange) {
-        this.input.addEventListener("change", (event) => {
-          onChange(event);
-        });
+    label.innerText = this.label;
+    this.errorMessageElement.innerText = "";
+
+    containerInput.append(label, this.input, this.errorMessageElement);
+
+    this.input.addEventListener("input", (event) => {
+      this.value = event.target.value;
+      if (this.value) {
+        this.updateErrorMessage("");
       }
+      if (onInput) {
+        onInput(event);
+      }
+    });
+
+    if (onChange) {
+      this.input.addEventListener("change", (event) => {
+        onChange(event);
+      });
     }
-    addListener.call(this);
-  }  
-  // updateErrorMessage(message) {
-  //   this.errorMessageElement.innerText = message;
-  // }
-  render(container){
-      container.append(this.containerInput);
-    };
+
+    return containerInput;
   }
- 
+  updateErrorMessage(message) {
+    this.errorMessageElement.innerText = message;
+  }
+  render(container) {
+    container.append(this.control);
+  }
+}
